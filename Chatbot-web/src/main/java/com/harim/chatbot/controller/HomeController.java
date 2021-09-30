@@ -1,4 +1,4 @@
-package com.harim.chatbot;
+package com.harim.chatbot.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

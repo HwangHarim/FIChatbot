@@ -1,26 +1,19 @@
-import React, {useState, useEffect } from 'react';
+import React, {Suspense, lazy} from 'react';
 import ReactDOM from 'react-dom';
+import {Route, Switch, HashRouter as Router} from 'react-router-dom';
 
-function Example() {
-  // 새로운 state 변수를 선언하고, count라 부르겠습니다.
-  const [count, setCount] = useState(0);    // useState(): 상태변수 초기화 함수
-  const [test, setTest] = useState('test');
-
-  useEffect(() =>{
-    document.title = `You clicked ${count} times`;
-  });
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-      <p>You clicked {test}</p>
-      <button onClick={() => setTest("test2")}>
-        Click me2
-      </button>
-    </div>
-  );
-}
-
-ReactDOM.render(<Example/>, document.getElementById("app"));
+const App=()=>{
+ const Main=lazy(() =>import('./main/jsx/main'));
+ const Chat=lazy(() =>import('./main/jsx/chat'));
+ return(
+   <Router>
+     <Suspense fallback={<div>Loading... </div>}>
+      <Switch>
+      <Route path="/" exact component={Main}/>
+      <Route path="/chat" exact component={Chat}/>
+   </Switch>
+   </Suspense>
+    </Router>
+ );
+};
+ReactDOM.render(<App/>, document.getElementById("app"));
